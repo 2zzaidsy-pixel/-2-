@@ -12,6 +12,7 @@ const exploreKeys = [
   { href: "/#about", key: "nav.about" },
   { href: "/#fields", key: "nav.fields" },
   { href: "/#philosophy", key: "nav.philosophy" },
+  { href: "/blog", key: "nav.blog" },
   { href: "/projects", key: "nav.projects" },
 ]
 

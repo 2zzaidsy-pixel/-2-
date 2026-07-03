@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Separator } from "@/components/ui/separator"
 import { useLanguage } from "@/components/layout/LanguageProvider"
 import { getTranslation } from "@/lib/i18n"
@@ -47,9 +48,14 @@ export function About() {
 
           <div className="relative">
             <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border/50 flex items-center justify-center overflow-hidden">
-              <div className="text-8xl sm:text-9xl font-bold text-foreground/5 select-none">
-                {t("site.title").charAt(0)}
-              </div>
+              <Image
+                src="/profile.jpg"
+                alt={t("site.title")}
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+                priority
+              />
             </div>
             <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-xl bg-gradient-to-br from-primary/30 to-accent/30 blur-xl" />
             <div className="absolute -top-4 -left-4 w-16 h-16 rounded-full bg-gradient-to-br from-accent/30 to-primary/30 blur-lg" />

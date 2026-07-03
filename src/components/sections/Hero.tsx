@@ -3,6 +3,7 @@
 import * as React from "react"
 import { motion } from "framer-motion"
 import { ArrowDown } from "lucide-react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/components/layout/LanguageProvider"
 import { getTranslation } from "@/lib/i18n"
@@ -25,7 +26,29 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm text-xs font-medium text-muted-foreground mb-8">
+          <div className="relative inline-block mb-8">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-border/50 mx-auto shadow-xl">
+              <Image
+                src="/profile.jpg"
+                alt={t("site.title")}
+                width={112}
+                height={112}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </div>
+            <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-primary border-2 border-background flex items-center justify-center">
+              <span className="text-[10px] text-primary-foreground font-bold">✓</span>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm text-xs font-medium text-muted-foreground mb-6">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             {t("site.author.role")}
           </div>
@@ -34,7 +57,7 @@ export function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.1]"
         >
           {t("site.title")}
@@ -55,7 +78,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
-          className="mt-10 flex items-center justify-center gap-4"
+          className="mt-10 flex items-center justify-center gap-4 flex-wrap"
         >
           <Button asChild size="lg" variant="gradient">
             <a href="/#about">{t("hero.explore")}</a>
