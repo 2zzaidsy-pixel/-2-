@@ -16,7 +16,7 @@ export const siteConfig = {
     avatar: "/avatar.jpg",
   },
   contact: {
-    email: "hello@example.com",
+    email: "zerotime2025@gmail.com",
   },
 }
 
