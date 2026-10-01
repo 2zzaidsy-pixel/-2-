@@ -1,51 +1,51 @@
-"use client"
-
-import * as React from "react"
 import Link from "next/link"
 import { siteConfig } from "@/data/site"
-import { Separator } from "@/components/ui/separator"
-import { useLanguage } from "@/components/layout/LanguageProvider"
-import { getTranslation } from "@/lib/i18n"
+import { socialPlatforms } from "@/data/social"
+import { createTranslator, localize, type Locale } from "@/lib/i18n"
 
-const exploreKeys = [
-  { href: "/", key: "nav.home" },
-  { href: "/#about", key: "nav.about" },
-  { href: "/#fields", key: "nav.fields" },
-  { href: "/#philosophy", key: "nav.philosophy" },
-  { href: "/blog", key: "nav.blog" },
-  { href: "/projects", key: "nav.projects" },
-]
+export function Footer({ locale }: { locale: Locale }) {
+  const t = createTranslator(locale)
+  const home = `/${locale}`
 
-export function Footer() {
-  const { language } = useLanguage()
-  const t = (key: string) => getTranslation(key, language)
+  const explore = [
+    { href: home, label: t("nav.home") },
+    { href: `${home}/#about`, label: t("nav.about") },
+    { href: `${home}/#fields`, label: t("nav.fields") },
+    { href: `${home}/#philosophy`, label: t("nav.philosophy") },
+    { href: `${home}/blog`, label: t("nav.blog") },
+    { href: `${home}/projects`, label: t("nav.projects") },
+  ]
 
   return (
     <footer className="border-t border-border/50">
-      <div className="max-width px-6 sm:px-8 lg:px-16 py-16 sm:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="max-width px-6 py-14 sm:px-8 sm:py-16 lg:px-16">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <Link
-              href="/"
-              className="text-lg font-semibold tracking-tight"
-            >
-              {t("site.title")}
+            <Link href={home} className="flex items-center gap-2 text-lg font-semibold tracking-tight">
+              <span
+                aria-hidden
+                className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] text-sm font-bold text-white"
+              >
+                Z
+              </span>
+              {t("site.name")}
             </Link>
-            <p className="mt-3 text-sm text-muted-foreground max-w-sm leading-relaxed">
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
               {t("site.description")}
             </p>
+            <p className="mt-4 text-xs text-muted-foreground">{t("footer.tagline")}</p>
           </div>
 
           <div>
-            <h3 className="text-sm font-medium mb-4">{t("footer.explore")}</h3>
+            <h2 className="mb-4 text-sm font-semibold">{t("footer.explore")}</h2>
             <ul className="space-y-3">
-              {exploreKeys.map((link) => (
-                <li key={link.href}>
+              {explore.map((item) => (
+                <li key={item.href}>
                   <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    href={item.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    {t(link.key)}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -53,20 +53,24 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-medium mb-4">{t("footer.connect")}</h3>
+            <h2 className="mb-4 text-sm font-semibold">{t("footer.connect")}</h2>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/#contact"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {t("nav.contact")}
-                </Link>
-              </li>
+              {socialPlatforms.map((platform) => (
+                <li key={platform.id}>
+                  <a
+                    href={platform.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {platform.name}
+                  </a>
+                </li>
+              ))}
               <li>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {t("footer.email")}
                 </a>
@@ -75,14 +79,12 @@ export function Footer() {
           </div>
         </div>
 
-        <Separator className="my-8" />
-
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border/50 pt-6 sm:flex-row">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} {siteConfig.name}. {t("footer.rights")}
+            &copy; {new Date().getFullYear()} {t("site.name")}. {t("footer.rights")}
           </p>
           <p className="text-xs text-muted-foreground">
-            {t("footer.built")}
+            {localize({ en: "Made with Next.js", ar: "مبني بـ Next.js" }, locale)}
           </p>
         </div>
       </div>

@@ -1,66 +1,58 @@
-"use client"
-
-import * as React from "react"
-import { motion } from "framer-motion"
 import Image from "next/image"
-import { Separator } from "@/components/ui/separator"
-import { useLanguage } from "@/components/layout/LanguageProvider"
-import { getTranslation } from "@/lib/i18n"
+import { Reveal } from "@/components/ui/Reveal"
+import { projects } from "@/data/projects"
+import { fields } from "@/data/fields"
+import { getArticleCount } from "@/lib/articles"
+import { createTranslator, type Locale } from "@/lib/i18n"
 
-export function About() {
-  const { language } = useLanguage()
-  const t = (key: string) => getTranslation(key, language)
+export function About({ locale }: { locale: Locale }) {
+  const t = createTranslator(locale)
+
+  const stats = [
+    { value: String(projects.length), label: t("about.statProjects") },
+    { value: String(getArticleCount(locale)), label: t("about.statArticles") },
+    { value: String(fields.length), label: t("about.statFields") },
+  ]
 
   return (
-    <section id="about" className="section-padding">
+    <section id="about" className="section-padding scroll-mt-24">
       <div className="max-width">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
-        >
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/50 bg-background/50 text-xs font-medium text-muted-foreground mb-6">
-              {t("about.label")}
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-              {t("about.heading")}
-            </h2>
-            <Separator className="my-6 w-12" />
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              {t("site.author.bio")}
-            </p>
-            <div className="mt-8 grid grid-cols-3 gap-6">
-              {[
-                { label: t("about.fields"), value: "5+" },
-                { label: t("about.projects"), value: "1+" },
-                { label: t("about.vision"), value: t("about.clear") },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-2xl sm:text-3xl font-bold text-gradient">{stat.value}</div>
-                  <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+        <Reveal>
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+            <div>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground">
+                {t("about.label")}
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                {t("about.heading")}
+              </h2>
+              <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+                {t("about.body")}
+              </p>
 
-          <div className="relative">
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border/50 flex items-center justify-center overflow-hidden">
-              <Image
-                src="/profile.jpg"
-                alt={t("site.title")}
-                width={400}
-                height={400}
-                className="w-full h-full object-cover"
-                priority
-              />
+              <div className="mt-10 grid grid-cols-3 gap-6">
+                {stats.map((stat) => (
+                  <div key={stat.label}>
+                    <p className="text-3xl font-bold text-gradient sm:text-4xl">{stat.value}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-xl bg-gradient-to-br from-primary/30 to-accent/30 blur-xl" />
-            <div className="absolute -top-4 -left-4 w-16 h-16 rounded-full bg-gradient-to-br from-accent/30 to-primary/30 blur-lg" />
+
+            <div className="relative">
+              <div className="aspect-square overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/15 to-accent/15">
+                <Image
+                  src="/profile.jpg"
+                  alt={t("site.portraitAlt")}
+                  width={400}
+                  height={400}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
           </div>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   )

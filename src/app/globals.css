@@ -43,6 +43,8 @@
 
 :root {
   --radius: 0.625rem;
+  --brand-gradient-from: oklch(0.45 0.16 270);
+  --brand-gradient-to: oklch(0.7 0.15 70);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -73,6 +75,8 @@
 }
 
 .dark {
+  --brand-gradient-from: oklch(0.65 0.2 275);
+  --brand-gradient-to: oklch(0.75 0.15 75);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -115,6 +119,130 @@
   ::selection {
     @apply bg-primary/20 text-foreground;
   }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+  [dir="rtl"] body {
+    font-family: var(--font-arabic), var(--font-geist-sans), system-ui, sans-serif;
+  }
+  [dir="rtl"] code,
+  [dir="rtl"] pre,
+  [dir="rtl"] kbd {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+  }
+}
+
+@layer components {
+  .prose-custom {
+    @apply text-base leading-8 text-foreground/90;
+  }
+  .prose-custom > * + * {
+    @apply mt-6;
+  }
+  .prose-custom h2 {
+    @apply mt-12 scroll-mt-28 text-2xl font-bold tracking-tight sm:text-3xl;
+  }
+  .prose-custom h3 {
+    @apply mt-10 scroll-mt-28 text-xl font-semibold tracking-tight;
+  }
+  .prose-custom h4 {
+    @apply mt-8 scroll-mt-28 text-lg font-semibold;
+  }
+  .prose-custom p {
+    @apply leading-8;
+  }
+  .prose-custom a {
+    @apply font-medium text-primary underline underline-offset-4 transition-colors hover:text-primary/80;
+  }
+  .prose-custom strong {
+    @apply font-semibold text-foreground;
+  }
+  .prose-custom ul {
+    @apply ms-6 list-disc space-y-2;
+  }
+  .prose-custom ol {
+    @apply ms-6 list-decimal space-y-2;
+  }
+  .prose-custom li::marker {
+    @apply text-muted-foreground;
+  }
+  .prose-custom blockquote {
+    @apply border-s-2 border-primary/60 bg-primary/5 py-3 ps-5 pe-4 text-lg italic leading-8 text-foreground/80;
+  }
+  .prose-custom blockquote p {
+    @apply leading-8;
+  }
+  .prose-custom hr {
+    @apply my-12 border-border;
+  }
+  .prose-custom code {
+    @apply rounded-md bg-muted px-1.5 py-0.5 text-[0.85em] text-foreground;
+  }
+  /* highlight.js ships the GitHub Dark token palette, so the code surface stays
+     dark in both themes instead of fighting it with a light background. */
+  .prose-custom pre {
+    @apply overflow-x-auto rounded-xl border border-[#30363d] bg-[#0d1117] p-4 text-sm leading-6 text-[#c9d1d9];
+  }
+  .prose-custom pre code {
+    @apply bg-transparent p-0 text-sm text-[#c9d1d9];
+  }
+  .prose-custom table {
+    @apply block w-full overflow-x-auto text-start text-sm sm:table;
+  }
+  .prose-custom th {
+    @apply border-b border-border px-3 py-2 text-start font-semibold;
+  }
+  .prose-custom td {
+    @apply border-b border-border/60 px-3 py-2 align-top;
+  }
+  .prose-custom img {
+    @apply rounded-xl border border-border;
+  }
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media print {
+  .no-print,
+  header,
+  footer {
+    display: none !important;
+  }
+  body {
+    @apply bg-white text-black;
+  }
+  .prose-custom {
+    @apply text-black;
+  }
+  .prose-custom a {
+    @apply text-black underline;
+  }
 }
 
 @layer utilities {
@@ -138,6 +266,17 @@
   }
   .max-width {
     @apply max-w-7xl mx-auto;
+  }
+  /* Direction-aware gradients. These live in the utilities layer on purpose:
+     a rule in @layer base always loses to the generated gradient utility. */
+  [dir="rtl"] .text-gradient,
+  [dir="rtl"] .bg-gradient-to-r,
+  [dir="rtl"] .bg-linear-to-r {
+    background-image: linear-gradient(to left, var(--tw-gradient-stops));
+  }
+  [dir="rtl"] .bg-gradient-to-br,
+  [dir="rtl"] .bg-linear-to-br {
+    background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
   }
 }
 

@@ -1,108 +1,84 @@
-"use client"
-
-import * as React from "react"
-import { motion } from "framer-motion"
-import { ArrowDown } from "lucide-react"
+import Link from "next/link"
 import Image from "next/image"
+import { ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useLanguage } from "@/components/layout/LanguageProvider"
-import { getTranslation } from "@/lib/i18n"
+import { createTranslator, type Locale } from "@/lib/i18n"
 
-export function Hero() {
-  const { language } = useLanguage()
-  const t = (key: string) => getTranslation(key, language)
+export function Hero({ locale }: { locale: Locale }) {
+  const t = createTranslator(locale)
+  const home = `/${locale}`
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
-        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "3s" }} />
+    <section className="relative flex min-h-svh items-center justify-center overflow-hidden pb-24">
+      <div aria-hidden className="absolute inset-0 -z-10">
+        <div className="animate-pulse-glow absolute left-1/4 top-1/4 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+        <div
+          className="animate-pulse-glow absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-accent/10 blur-3xl"
+          style={{ animationDelay: "1.5s" }}
+        />
       </div>
 
-      <div className="max-width px-6 sm:px-8 lg:px-16 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <div className="relative inline-block mb-8">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-border/50 mx-auto shadow-xl">
+      <div className="max-width px-6 text-center sm:px-8 lg:px-16">
+        <div className="animate-fade-in-up">
+          <div className="relative mx-auto mb-8 inline-block">
+            <div className="mx-auto h-24 w-24 overflow-hidden rounded-full border-2 border-border/60 shadow-xl sm:h-28 sm:w-28">
               <Image
                 src="/profile.jpg"
-                alt={t("site.title")}
+                alt={t("site.portraitAlt")}
                 width={112}
                 height={112}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 priority
               />
             </div>
-            <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-primary border-2 border-background flex items-center justify-center">
-              <span className="text-[10px] text-primary-foreground font-bold">✓</span>
-            </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+        <div
+          className="animate-fade-in-up mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-4 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-sm"
+          style={{ animationDelay: "80ms" }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm text-xs font-medium text-muted-foreground mb-6">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            {t("site.author.role")}
-          </div>
-        </motion.div>
+          <span aria-hidden className="h-2 w-2 rounded-full bg-primary" />
+          {t("hero.badge")}
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.1]"
+        <h1
+          className="animate-fade-in-up text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+          style={{ animationDelay: "140ms" }}
         >
-          {t("site.title")}
-          <br />
-          <span className="text-gradient">{t("hero.tagline")}</span>
-        </motion.h1>
+          {t("site.name")}
+          <span className="mt-2 block text-gradient">{t("site.tagline")}</span>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+        <p
+          className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+          style={{ animationDelay: "220ms" }}
         >
-          {t("site.description")}
-        </motion.p>
+          {t("hero.description")}
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
-          className="mt-10 flex items-center justify-center gap-4 flex-wrap"
+        <div
+          className="animate-fade-in-up mt-10 flex flex-wrap items-center justify-center gap-4"
+          style={{ animationDelay: "300ms" }}
         >
           <Button asChild size="lg" variant="gradient">
-            <a href="/#about">{t("hero.explore")}</a>
+            <Link href={`${home}/projects`}>{t("hero.primaryCta")}</Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <a href="/projects">{t("hero.viewProjects")}</a>
+            <Link href={`${home}/blog`}>{t("hero.secondaryCta")}</Link>
           </Button>
-        </motion.div>
+        </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <a
-          href="/#about"
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+      <div className="absolute bottom-8 start-1/2 -translate-x-1/2 rtl:translate-x-1/2">
+        <Link
+          href={`${home}#about`}
+          className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
         >
           <span className="text-xs font-medium">{t("hero.scroll")}</span>
-          <ArrowDown className="h-4 w-4 animate-bounce" />
-        </a>
-      </motion.div>
+          <ArrowDown aria-hidden className="h-4 w-4 animate-bounce" />
+        </Link>
+      </div>
     </section>
   )
 }

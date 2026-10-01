@@ -1,23 +1,22 @@
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://zerotime.vercel.app").replace(
+  /\/$/,
+  ""
+)
+
 export const siteConfig = {
-  name: "Zaid Alkade",
-  title: "Zaid",
-  description: "Exploring the depths of psychology, sociology, and human behavior. A journey into critical thinking and self-development.",
-  url: "https://example.com",
-  ogImage: "https://example.com/og.jpg",
-  links: {
-    twitter: "https://twitter.com",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-  },
-  author: {
-    name: "Zaid Alkade",
-    role: "Researcher & Thinker",
-    bio: "Exploring the intersections of psychology, sociology, and human potential. Passionate about understanding what makes us human and how we can grow beyond our limits.",
-    avatar: "/avatar.jpg",
-  },
+  name: "Zaid",
+  url: siteUrl,
+  image: "/profile.jpg",
+  description:
+    "Zaid builds practical web products and writes about psychology, human behavior, and critical thinking.",
   contact: {
     email: "zerotime2025@gmail.com",
   },
-}
+  social: {
+    youtube: "https://www.youtube.com/@zaid_al_kade",
+    instagram: "https://www.instagram.com/zaid_al_kade",
+    facebook: "https://www.facebook.com/2zzaid",
+  },
+} as const
 
 export type SiteConfig = typeof siteConfig

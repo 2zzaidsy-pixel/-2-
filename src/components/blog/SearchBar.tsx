@@ -7,32 +7,42 @@ import { cn } from "@/lib/utils"
 interface SearchBarProps {
   value: string
   onChange: (value: string) => void
-  placeholder?: string
+  placeholder: string
+  label: string
+  clearLabel: string
 }
 
-export function SearchBar({ value, onChange, placeholder = "Search articles..." }: SearchBarProps) {
+export function SearchBar({ value, onChange, placeholder, label, clearLabel }: SearchBarProps) {
+  const id = React.useId()
+
   return (
     <div className="relative">
-      <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <label htmlFor={id} className="sr-only">
+        {label}
+      </label>
+      <Search aria-hidden className="absolute start-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <input
-        type="text"
+        id={id}
+        type="search"
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(event) => onChange(event.target.value)}
         className={cn(
-          "w-full h-11 pl-10 pr-9 rounded-xl",
-          "bg-background border border-border/50",
+          "h-11 w-full rounded-xl border border-border/60 bg-background ps-10 pe-9",
           "text-sm text-foreground placeholder:text-muted-foreground",
-          "focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50",
-          "transition-all duration-200"
+          "transition-all duration-200 focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/30",
+          // Hide WebKit's native clear control; the custom button below replaces it.
+          "[&::-webkit-search-cancel-button]:appearance-none"
         )}
       />
       {value && (
         <button
+          type="button"
           onClick={() => onChange("")}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+          aria-label={clearLabel}
+          className="absolute end-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground transition-colors hover:text-foreground"
         >
-          <X className="h-4 w-4" />
+          <X aria-hidden className="h-4 w-4" />
         </button>
       )}
     </div>

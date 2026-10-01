@@ -1,43 +1,62 @@
-"use client"
-
-import * as React from "react"
-import { motion } from "framer-motion"
+import Link from "next/link"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import rehypeHighlight from "rehype-highlight"
-import rehypeSlug from "rehype-slug"
-import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react"
-import Link from "next/link"
+import { Calendar, Clock, ArrowLeft, ArrowRight, List } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { markdownComponents, generateTableOfContents } from "@/lib/markdown"
-import { useLanguage } from "@/components/layout/LanguageProvider"
-import { getTranslation } from "@/lib/i18n"
-import type { Article } from "@/lib/articles"
-import type { ArticleMeta } from "@/lib/articles"
+import {
+  generateTableOfContents,
+  markdownComponents,
+  rehypeHeadingIds,
+  type TocItem,
+} from "@/lib/markdown"
+import { createTranslator, formatDate, plural, type Locale } from "@/lib/i18n"
+import type { Article, ArticleMeta } from "@/lib/articles"
 
-function TableOfContents({ items }: { items: { id: string; text: string; level: number }[] }) {
+function TocLinks({ items }: { items: TocItem[] }) {
+  return (
+    <div className="space-y-1">
+      {items.map((item) => (
+        <a
+          key={item.id}
+          href={`#${item.id}`}
+          className="block rounded-md py-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          style={{ paddingInlineStart: `${(item.level - 1) * 12 + 8}px` }}
+        >
+          {item.text}
+        </a>
+      ))}
+    </div>
+  )
+}
+
+function TableOfContents({ items, label }: { items: TocItem[]; label: string }) {
   if (items.length === 0) return null
 
   return (
-    <div className="glass-card rounded-xl p-5 sticky top-28">
-      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-        On this page
-      </h4>
-      <nav className="space-y-1.5">
-        {items.map((item) => (
-          <a
-            key={item.id}
-            href={`#${item.id}`}
-            className="block text-xs text-muted-foreground hover:text-foreground transition-colors"
-            style={{ paddingLeft: `${(item.level - 1) * 12}px` }}
-          >
-            {item.text}
-          </a>
-        ))}
-      </nav>
-    </div>
+    <nav aria-label={label} className="glass-card sticky top-28 hidden rounded-xl p-5 lg:block">
+      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        {label}
+      </p>
+      <TocLinks items={items} />
+    </nav>
+  )
+}
+
+function MobileTableOfContents({ items, label }: { items: TocItem[]; label: string }) {
+  if (items.length === 0) return null
+
+  return (
+    <details className="glass-card mb-10 rounded-xl p-5 lg:hidden">
+      <summary className="flex cursor-pointer list-none items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        <List aria-hidden className="h-4 w-4" />
+        {label}
+      </summary>
+      <div className="mt-3">
+        <TocLinks items={items} />
+      </div>
+    </details>
   )
 }
 
@@ -45,121 +64,124 @@ export function ArticleContent({
   article,
   prev,
   next,
+  locale,
 }: {
   article: Article
   prev: ArticleMeta | null
   next: ArticleMeta | null
+  locale: Locale
 }) {
-  const { language } = useLanguage()
-  const t = (key: string) => getTranslation(key, language)
-
-  const toc = React.useMemo(() => generateTableOfContents(article.content), [article.content])
+  const t = createTranslator(locale)
+  const toc = generateTableOfContents(article.content)
+  const category =
+    locale === "ar" && article.frontmatter.categoryAr
+      ? article.frontmatter.categoryAr
+      : article.frontmatter.category
 
   return (
-    <main>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-      >
-        <div className="max-w-3xl mx-auto px-6 sm:px-8 pt-32 sm:pt-40 pb-16">
-          <Button asChild variant="ghost" size="sm" className="mb-8">
-            <Link href="/blog">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              {t("projects.backHome")}
-            </Link>
-          </Button>
+    <div className="pb-24 pt-32 sm:pb-32 sm:pt-40">
+      <div className="mx-auto max-w-3xl px-6 sm:px-8">
+        <Button asChild variant="ghost" size="sm" className="mb-8">
+          <Link href={`/${locale}/blog`}>
+            <ArrowLeft aria-hidden className="me-2 h-4 w-4 rtl:scale-x-[-1]" />
+            {t("blog.backToBlog")}
+          </Link>
+        </Button>
 
-          <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
-            <span className="flex items-center gap-1">
-              <Calendar className="h-3.5 w-3.5" />
-              {new Date(article.frontmatter.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5" />
-              {article.readingTime}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 mb-4">
-            <Badge variant="secondary">{article.frontmatter.category}</Badge>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            {article.frontmatter.title}
-          </h1>
-
-          <p className="text-base text-muted-foreground leading-relaxed mb-6">
-            {article.frontmatter.description}
-          </p>
-
-          <div className="flex flex-wrap gap-2 mb-10">
-            {article.frontmatter.tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs">
-                #{tag}
-              </Badge>
-            ))}
-          </div>
+        <div className="mb-4 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+          <span className="flex items-center gap-1">
+            <Calendar aria-hidden className="h-3.5 w-3.5" />
+            {formatDate(article.frontmatter.date, locale)}
+          </span>
+          <span className="flex items-center gap-1">
+            <Clock aria-hidden className="h-3.5 w-3.5" />
+            {plural("blog.readingTime", article.readingMinutes, locale)}
+          </span>
         </div>
-      </motion.div>
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 pb-24 sm:pb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-10">
-          <motion.article
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="prose-custom min-w-0"
-          >
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeHighlight, rehypeSlug]}
-              components={markdownComponents}
-            >
-              {article.content}
-            </ReactMarkdown>
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <Badge variant="secondary">{category}</Badge>
+          <span className="text-xs text-muted-foreground">
+            {t("blog.byline")} {t("site.name")}
+          </span>
+        </div>
 
-            <Separator className="my-12" />
+        <h1 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+          {article.frontmatter.title}
+        </h1>
 
-            <div className="flex items-center justify-between gap-4">
+        <p className="mb-6 text-base leading-relaxed text-muted-foreground">
+          {article.frontmatter.description}
+        </p>
+
+        <div className="mb-10 flex flex-wrap gap-2">
+          {article.frontmatter.tags.map((tag) => (
+            <Badge key={tag} variant="outline">
+              #{tag}
+            </Badge>
+          ))}
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-6 sm:px-8">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_200px]">
+          <div className="min-w-0">
+            <MobileTableOfContents items={toc} label={t("blog.onThisPage")} />
+
+            <article className="prose-custom max-w-[70ch]">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeHeadingIds, rehypeHighlight]}
+                components={markdownComponents}
+              >
+                {article.content}
+              </ReactMarkdown>
+            </article>
+
+            <div className="mt-14 flex flex-col gap-6 border-t border-border/50 pt-8 sm:flex-row sm:items-center sm:justify-between">
               {prev ? (
                 <Link
-                  href={`/blog/${prev.slug}`}
-                  className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  href={`/${locale}/blog/${prev.slug}`}
+                  className="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                  <div className="text-left">
-                    <div className="text-xs text-muted-foreground">Previous</div>
-                    <div className="font-medium line-clamp-1">{prev.frontmatter.title}</div>
-                  </div>
+                  <ArrowLeft
+                    aria-hidden
+                    className="h-4 w-4 transition-transform group-hover:-translate-x-1 rtl:scale-x-[-1]"
+                  />
+                  <span>
+                    <span className="block text-xs text-muted-foreground">
+                      {t("blog.previous")}
+                    </span>
+                    <span className="line-clamp-1 font-medium">{prev.frontmatter.title}</span>
+                  </span>
                 </Link>
               ) : (
-                <div />
+                <span />
               )}
+
               {next && (
                 <Link
-                  href={`/blog/${next.slug}`}
-                  className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors text-right"
+                  href={`/${locale}/blog/${next.slug}`}
+                  className="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:text-end"
                 >
-                  <div>
-                    <div className="text-xs text-muted-foreground">Next</div>
-                    <div className="font-medium line-clamp-1">{next.frontmatter.title}</div>
-                  </div>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <span>
+                    <span className="block text-xs text-muted-foreground">{t("blog.next")}</span>
+                    <span className="line-clamp-1 font-medium">{next.frontmatter.title}</span>
+                  </span>
+                  <ArrowRight
+                    aria-hidden
+                    className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:scale-x-[-1]"
+                  />
                 </Link>
               )}
             </div>
-          </motion.article>
+          </div>
 
           <aside className="hidden lg:block">
-            <TableOfContents items={toc} />
+            <TableOfContents items={toc} label={t("blog.onThisPage")} />
           </aside>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

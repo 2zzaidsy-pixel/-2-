@@ -1,41 +1,54 @@
 "use client"
 
-import * as React from "react"
 import { cn } from "@/lib/utils"
 
-interface CategoryFilterProps {
-  categories: string[]
-  selected: string | null
-  onSelect: (category: string | null) => void
-  allLabel?: string
+export interface CategoryOption {
+  value: string
+  label: string
 }
 
-export function CategoryFilter({ categories, selected, onSelect, allLabel = "All" }: CategoryFilterProps) {
+interface CategoryFilterProps {
+  categories: CategoryOption[]
+  selected: string | null
+  onSelect: (category: string | null) => void
+  allLabel: string
+  groupLabel: string
+}
+
+export function CategoryFilter({
+  categories,
+  selected,
+  onSelect,
+  allLabel,
+  groupLabel,
+}: CategoryFilterProps) {
+  const buttonClass = (isActive: boolean) =>
+    cn(
+      "rounded-full border px-4 py-1.5 text-xs font-medium transition-colors",
+      isActive
+        ? "border-primary bg-primary text-primary-foreground"
+        : "border-border/60 bg-background text-muted-foreground hover:border-primary/50 hover:text-foreground"
+    )
+
   return (
-    <div className="flex flex-wrap gap-2">
+    <div role="group" aria-label={groupLabel} className="flex flex-wrap gap-2">
       <button
+        type="button"
         onClick={() => onSelect(null)}
-        className={cn(
-          "px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border",
-          selected === null
-            ? "bg-primary text-primary-foreground border-primary"
-            : "bg-background text-muted-foreground border-border/50 hover:border-primary/50 hover:text-foreground"
-        )}
+        aria-pressed={selected === null}
+        className={buttonClass(selected === null)}
       >
         {allLabel}
       </button>
-      {categories.map((cat) => (
+      {categories.map((category) => (
         <button
-          key={cat}
-          onClick={() => onSelect(cat === selected ? null : cat)}
-          className={cn(
-            "px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border",
-            selected === cat
-              ? "bg-primary text-primary-foreground border-primary"
-              : "bg-background text-muted-foreground border-border/50 hover:border-primary/50 hover:text-foreground"
-          )}
+          key={category.value}
+          type="button"
+          onClick={() => onSelect(category.value === selected ? null : category.value)}
+          aria-pressed={selected === category.value}
+          className={buttonClass(selected === category.value)}
         >
-          {cat}
+          {category.label}
         </button>
       ))}
     </div>

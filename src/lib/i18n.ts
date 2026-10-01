@@ -1,140 +1,127 @@
-export type Language = "en" | "ar"
+import ar from "@/messages/ar.json"
+import en from "@/messages/en.json"
 
-export const translations: Record<Language, Record<string, string>> = {
-  en: {
-    "site.title": "Zaid",
-    "site.description": "Exploring the depths of psychology, sociology, and human behavior. A journey into critical thinking and self-development.",
-    "site.author.role": "Researcher & Thinker",
-    "site.author.bio": "Exploring the intersections of psychology, sociology, and human potential. Passionate about understanding what makes us human and how we can grow beyond our limits.",
-    "nav.home": "Home",
-    "nav.about": "About",
-    "nav.fields": "Fields",
-    "nav.philosophy": "Philosophy",
-    "nav.blog": "Blog",
-    "nav.projects": "Projects",
-    "nav.contact": "Contact",
-    "footer.explore": "Explore",
-    "footer.connect": "Connect",
-    "footer.email": "Email",
-    "footer.rights": "All rights reserved.",
-    "footer.built": "Built with intention.",
-    "hero.tagline": "Think. Understand. Grow.",
-    "hero.explore": "Explore My Work",
-    "hero.viewProjects": "View Projects",
-    "hero.scroll": "Scroll",
-    "about.label": "About",
-    "about.heading": "Who I Am",
-    "about.fields": "Fields",
-    "about.projects": "Projects",
-    "about.vision": "Vision",
-    "about.clear": "Clear",
-    "fields.label": "Focus Areas",
-    "fields.heading": "Fields of Interest",
-    "fields.subtitle": "Exploring the depths of human consciousness and behavior through multiple lenses.",
-    "philosophy.label": "Philosophy",
-    "philosophy.heading": "My Philosophy",
-    "projects.label": "Projects",
-    "projects.featured": "Featured Project",
-    "projects.viewAll": "View All Projects",
-    "projects.active": "Active",
-    "projects.comingSoon": "Coming Soon",
-    "projects.enterSystem": "Enter The System",
-    "projects.lifeMgmt": "Life Management Platform",
-    "projects.other": "Other Projects",
-    "projects.backHome": "Back Home",
-    "projects.myProjects": "My Projects",
-    "projects.subtitle": "Building tools and frameworks for a better understanding of the mind and a more intentional life.",
-    "projects.activeProject": "Active Project",
-    "contact.label": "Get In Touch",
-    "contact.heading": "Let's Connect",
-    "contact.subtitle": "Have a question, idea, or just want to say hello? I'd love to hear from you.",
-    "contact.sendEmail": "Send an Email",
-    "contact.startChat": "Start a Conversation",
-    "contact.email": "Email",
-    "contact.bestWay": "Best way to reach me",
-    "blog.heading": "Blog",
-    "blog.subtitle": "Thoughts on psychology, sociology, self-development, human behavior, and critical thinking.",
-    "blog.search": "Search articles...",
-    "blog.all": "All",
-    "blog.noResults": "No articles found. Try a different search or category.",
-    "blog.empty": "No articles yet. Check back soon for new content.",
-    "creator.heading": "Content Creator",
-    "creator.description": "I create educational, technical, and creative content across multiple platforms. My goal is to simplify technology, share knowledge, and build useful projects for people around the world. Follow me on my social media accounts to stay updated with my latest videos, tutorials, and projects.",
-    "creator.follow": "Follow Me",
-    "creator.statVideos": "Videos Published",
-    "creator.statSubscribers": "Subscribers",
-    "creator.statFollowers": "Followers",
-    "creator.ctaText": "Join my community and never miss new content.",
-    "creator.ctaButton": "Follow My Content",
-  },
-  ar: {
-    "site.title": "زيد",
-    "site.description": "استكشاف أعماق علم النفس وعلم الاجتماع والسلوك البشري. رحلة في التفكير النقدي وتطوير الذات.",
-    "site.author.role": "باحث ومفكر",
-    "site.author.bio": "أستكشف تقاطعات علم النفس وعلم الاجتماع والإمكانات البشرية. شغوف بفهم ما يجعلنا بشراً وكيف يمكننا النمو beyond حدودنا.",
-    "nav.home": "الرئيسية",
-    "nav.about": "عنّي",
-    "nav.fields": "المجالات",
-    "nav.philosophy": "الفلسفة",
-    "nav.blog": "المدونة",
-    "nav.projects": "المشاريع",
-    "nav.contact": "اتصل",
-    "footer.explore": "استكشف",
-    "footer.connect": "تواصل",
-    "footer.email": "البريد الإلكتروني",
-    "footer.rights": "جميع الحقوق محفوظة.",
-    "footer.built": "بُني بقصد.",
-    "hero.tagline": "فكّر. افهم. تنمَ.",
-    "hero.explore": "استكشف أعمالي",
-    "hero.viewProjects": "شاهد المشاريع",
-    "hero.scroll": "اسفل",
-    "about.label": "عنّي",
-    "about.heading": "من أنا",
-    "about.fields": "مجالات",
-    "about.projects": "مشاريع",
-    "about.vision": "رؤية",
-    "about.clear": "واضحة",
-    "fields.label": "مجالات التركيز",
-    "fields.heading": "مجالات الاهتمام",
-    "fields.subtitle": "استكشاف أعماق الوعي البشري والسلوك من خلال عدسات متعددة.",
-    "philosophy.label": "فلسفتي",
-    "philosophy.heading": "فلسفتي",
-    "projects.label": "المشاريع",
-    "projects.featured": "مشروع مميز",
-    "projects.viewAll": "عرض كل المشاريع",
-    "projects.active": "نشط",
-    "projects.comingSoon": "قريباً",
-    "projects.enterSystem": "ادخل إلى النظام",
-    "projects.lifeMgmt": "منصة إدارة الحياة",
-    "projects.other": "مشاريع أخرى",
-    "projects.backHome": "العودة للرئيسية",
-    "projects.myProjects": "مشاريعي",
-    "projects.subtitle": "بناء أدوات وأطر لفهم أعمق للعقل وحياة أكثر وعياً.",
-    "projects.activeProject": "مشروع نشط",
-    "contact.label": "تواصل معي",
-    "contact.heading": "لنتواصل",
-    "contact.subtitle": "لديك سؤال، فكرة، أو تريد فقط إلقاء التحية؟ أحب أن أسمع منك.",
-    "contact.sendEmail": "أرسل بريداً",
-    "contact.startChat": "ابدأ محادثة",
-    "contact.email": "البريد الإلكتروني",
-    "contact.bestWay": "أفضل طريقة للوصول إلي",
-    "blog.heading": "المدونة",
-    "blog.subtitle": "أفكار في علم النفس، علم الاجتماع، تطوير الذات، السلوك البشري، والتفكير النقدي.",
-    "blog.search": "ابحث في المقالات...",
-    "blog.all": "الكل",
-    "blog.noResults": "لم يتم العثور على مقالات. جرب بحثاً أو تصنيفاً آخر.",
-    "blog.empty": "لا توجد مقالات بعد. تفضل بزيارتنا قريباً لمحتوى جديد.",
-    "creator.heading": "صانع المحتوى",
-    "creator.description": "أصنع محتوى تعليمياً وتقنياً وإبداعياً عبر منصات متعددة. هدفي تبسيط التكنولوجيا ومشاركة المعرفة وبناء مشاريع مفيدة للناس حول العالم. تابعني على حساباتي على وسائل التواصل الاجتماعي للاطلاع على أحدث فيديوهاتي ودروسي ومشاريعي.",
-    "creator.follow": "تابعني",
-    "creator.statVideos": "فيديو منشور",
-    "creator.statSubscribers": "مشترك",
-    "creator.statFollowers": "متابع",
-    "creator.ctaText": "انضم إلى مجتمعي ولا تفوت المحتوى الجديد أبداً.",
-    "creator.ctaButton": "تابع محتواي",
-  },
+export const locales = ["en", "ar"] as const
+
+export type Locale = (typeof locales)[number]
+
+export const defaultLocale: Locale = "en"
+
+export const localeCookie = "NEXT_LOCALE"
+
+export const localeDir: Record<Locale, "ltr" | "rtl"> = {
+  en: "ltr",
+  ar: "rtl",
 }
 
-export function getTranslation(key: string, lang: Language): string {
-  return translations[lang]?.[key] ?? translations["en"]?.[key] ?? key
+export const localeLabel: Record<Locale, string> = {
+  en: "English",
+  ar: "العربية",
+}
+
+export const localeDateTag: Record<Locale, string> = {
+  en: "en-US",
+  ar: "ar-EG",
+}
+
+export const localeNumberTag: Record<Locale, string> = {
+  en: "en-US",
+  ar: "ar-EG",
+}
+
+export const localeOgLocale: Record<Locale, string> = {
+  en: "en_US",
+  ar: "ar_EG",
+}
+
+export function isLocale(value: string | undefined | null): value is Locale {
+  return typeof value === "string" && (locales as readonly string[]).includes(value)
+}
+
+export interface Localized {
+  en: string
+  ar: string
+}
+
+export function localize(value: Localized, locale: Locale): string {
+  return value[locale] ?? value.en
+}
+
+type MessageTable = typeof en
+
+export type Messages = MessageTable
+export type MessageKey = keyof MessageTable
+
+const tables: Record<Locale, Messages> = { en, ar }
+
+export function getMessages(locale: Locale): Messages {
+  return tables[locale] ?? tables[defaultLocale]
+}
+
+export type Translator = (key: MessageKey) => string
+
+export function createTranslator(locale: Locale): Translator {
+  const messages = getMessages(locale)
+  return (key) => messages[key] ?? en[key] ?? key
+}
+
+export function formatDate(date: string, locale: Locale): string {
+  return new Intl.DateTimeFormat(localeDateTag[locale], {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(date))
+}
+
+export function formatNumber(value: number, locale: Locale): string {
+  return new Intl.NumberFormat(localeNumberTag[locale]).format(value)
+}
+
+export type PluralCategory = "zero" | "one" | "two" | "few" | "many" | "other"
+
+/** Arabic keeps six plural categories; English only needs one/other. */
+export function pluralCategory(count: number, locale: Locale): PluralCategory {
+  if (count === 0) return "zero"
+  if (locale === "en") return count === 1 ? "one" : "other"
+  if (count === 1) return "one"
+  if (count === 2) return "two"
+
+  const mod100 = count % 100
+  if (mod100 >= 3 && mod100 <= 10) return "few"
+  if (mod100 >= 11 && mod100 <= 99) return "many"
+  return "other"
+}
+
+export type PluralKey = "blog.readingTime" | "blog.resultsCount" | "content.statFollowers"
+
+export function plural(key: PluralKey, count: number, locale: Locale): string {
+  const messages = getMessages(locale) as unknown as Record<string, string>
+  const category = pluralCategory(count, locale)
+  const template =
+    messages[`${key}.${category}`] ?? messages[`${key}.other`] ?? messages[key] ?? ""
+
+  return template.replace("{n}", formatNumber(count, locale))
+}
+
+export function swapLocaleInPath(pathname: string): string {
+  const segments = pathname.split("/").filter(Boolean)
+  if (isLocale(segments[0])) {
+    segments[0] = segments[0] === "en" ? "ar" : "en"
+    return `/${segments.join("/")}`
+  }
+  return pathname
+}
+
+/**
+ * Target of the header language switch. Article slugs are language-specific
+ * with no translated pairs, so switching from an article lands on that
+ * language's blog index instead of a slug that would 404.
+ */
+export function languageSwitchHref(pathname: string, locale: Locale): string {
+  const segments = pathname.split("/").filter(Boolean)
+  const isArticlePage = isLocale(segments[0]) && segments[1] === "blog" && segments.length === 3
+  const other: Locale = locale === "en" ? "ar" : "en"
+
+  return isArticlePage ? `/${other}/blog` : swapLocaleInPath(pathname)
 }
