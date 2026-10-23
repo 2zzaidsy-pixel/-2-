@@ -44,20 +44,35 @@ export function useArticleList(locale: string) {
 
   React.useEffect(() => {
     let active = true
-    fetch(`/api/admin/articles?locale=${locale}`)
-      .then(async (response) => {
+    let controller: AbortController | null = null
+
+    async function load() {
+      controller = new AbortController()
+      const timeoutId = setTimeout(() => controller?.abort(), 10000)
+      try {
+        const response = await fetch(`/api/admin/articles?locale=${locale}`, { signal: controller.signal })
         const payload = await readPayload<{ articles: ArticleListItem[] }>(response)
         if (!active) return
         setArticles(payload.articles)
         setStatus("idle")
-      })
-      .catch((caught: unknown) => {
+      } catch (caught: unknown) {
         if (!active) return
-        setError(caught instanceof Error ? caught.message : String(caught))
+        if (caught instanceof DOMException && caught.name === "AbortError") {
+          setError("تجاوزت مدة تحميل المقالات. تأكد من الاتصال ومتغيرات فيرسيل.")
+        } else {
+          setError(caught instanceof Error ? caught.message : String(caught))
+        }
         setStatus("error")
-      })
+      } finally {
+        clearTimeout(timeoutId)
+        controller = null
+      }
+    }
+
+    load()
     return () => {
       active = false
+      controller?.abort()
     }
   }, [locale])
 

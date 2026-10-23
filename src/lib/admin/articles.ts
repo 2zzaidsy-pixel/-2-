@@ -73,15 +73,19 @@ export async function listArticles(locale: Locale): Promise<AdminArticle[]> {
 
   const articles = await Promise.all(
     markdown.map(async (entry) => {
-      const file = await readFile(entry.path)
-      if (!file) return null
-      const slug = entry.name.slice(0, -3)
-      if (!isValidSlug(slug)) return null
-      const parsed = matter(file.content)
-      return {
-        slug,
-        frontmatter: normalize(parsed.data as Record<string, unknown>),
-        readingMinutes: Math.max(1, Math.round(readingTime(parsed.content).minutes)),
+      try {
+        const file = await readFile(entry.path)
+        if (!file) return null
+        const slug = entry.name.slice(0, -3)
+        if (!isValidSlug(slug)) return null
+        const parsed = matter(file.content)
+        return {
+          slug,
+          frontmatter: normalize(parsed.data as Record<string, unknown>),
+          readingMinutes: Math.max(1, Math.round(readingTime(parsed.content).minutes)),
+        }
+      } catch {
+        return null
       }
     })
   )
