@@ -5,8 +5,10 @@ import {
   getAdjacentArticles,
   getAllArticles,
   getArticleBySlug,
+  getPairedArticleSlugs,
 } from "@/lib/articles"
 import { constructMetadata } from "@/lib/metadata"
+import { siteConfig } from "@/data/site"
 import { createTranslator, isLocale, locales } from "@/lib/i18n"
 import "highlight.js/styles/github-dark.css"
 
@@ -29,6 +31,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const article = getArticleBySlug(slug, locale)
   if (!article) return {}
 
+  // Articles are written as translated pairs sharing one slug. Only advertise
+  // a cross-language alternate when the counterpart actually exists.
+  const hasCounterpart = getPairedArticleSlugs().includes(slug)
+
   return constructMetadata({
     locale,
     title: article.frontmatter.title,
@@ -36,9 +42,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     path: `/${locale}/blog/${slug}`,
     type: "article",
     publishedTime: article.frontmatter.date,
-    // Article slugs are language-specific, so there is no counterpart URL to
-    // advertise. Emitting one would point Google at a 404.
-    alternates: null,
+    alternates: hasCounterpart
+      ? {
+          en: `${siteConfig.url}/en/blog/${slug}`,
+          ar: `${siteConfig.url}/ar/blog/${slug}`,
+        }
+      : null,
   })
 }
 

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { getAllArticles } from "@/lib/articles"
+import { getAllArticles, getPairedArticleSlugs } from "@/lib/articles"
 import { siteConfig } from "@/data/site"
 import { defaultLocale, locales } from "@/lib/i18n"
 
@@ -35,14 +35,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   )
 
-  // Articles are standalone per language, so they advertise no cross-language
-  // alternates: the same slug does not exist in the other language.
+  // Articles are written as translated pairs sharing one slug, so a paired
+  // article advertises its counterpart in the other language. An article
+  // without a counterpart stays standalone.
+  const paired = new Set(getPairedArticleSlugs())
   const articleEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
     getAllArticles(locale).map((article) => ({
       url: `${siteConfig.url}/${locale}/blog/${article.slug}`,
       lastModified: new Date(article.frontmatter.updatedDate ?? article.frontmatter.date),
       changeFrequency: "yearly" as const,
       priority: 0.6,
+      ...(paired.has(article.slug)
+        ? {
+            alternates: {
+              languages: {
+                en: `${siteConfig.url}/en/blog/${article.slug}`,
+                ar: `${siteConfig.url}/ar/blog/${article.slug}`,
+              },
+            },
+          }
+        : {}),
     }))
   )
 

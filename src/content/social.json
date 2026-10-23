@@ -1,0 +1,38 @@
+[
+  {
+    "id": "youtube",
+    "name": "YouTube",
+    "handle": "@zaid_al_kade",
+    "url": "https://www.youtube.com/@zaid_al_kade",
+    "color": "from-red-500 to-rose-600",
+    "description": {
+      "en": "Longer videos on the questions I can't stop thinking about: psychology, philosophy, and how people actually behave.",
+      "ar": "فيديوهات أطول عن الأسئلة التي لا أستطيع التوقف عن التفكير فيها: علم النفس والفلسفة، والسلوك الحقيقي للإنسان."
+    },
+    "followers": null
+  },
+  {
+    "id": "instagram",
+    "name": "Instagram",
+    "handle": "@zaid_al_kade",
+    "url": "https://www.instagram.com/zaid_al_kade",
+    "color": "from-pink-500 to-fuchsia-600",
+    "description": {
+      "en": "Short breakdowns, behind the scenes, and one idea worth keeping.",
+      "ar": "شروحات قصيرة، وكواليس العمل، وفكرة واحدة تستحق أن تُحفظ."
+    },
+    "followers": null
+  },
+  {
+    "id": "facebook",
+    "name": "Facebook",
+    "handle": "2zzaid",
+    "url": "https://www.facebook.com/2zzaid",
+    "color": "from-blue-600 to-indigo-600",
+    "description": {
+      "en": "Longer posts and open discussion about sociology, psychology and philosophy.",
+      "ar": "منشورات أطول، ونقاش مفتوح عن علم الاجتماع وعلم النفس والفلسفة."
+    },
+    "followers": null
+  }
+]

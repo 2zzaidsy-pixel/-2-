@@ -3,14 +3,16 @@ import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/ui/Reveal"
 import { YoutubeIcon } from "@/components/ui/brand-icons"
 import { siteConfig } from "@/data/site"
+import { socialPlatforms } from "@/data/social"
 import { createTranslator, type Locale } from "@/lib/i18n"
 
 export function Contact({ locale }: { locale: Locale }) {
   const t = createTranslator(locale)
   const email = siteConfig.contact.email
+  const youtubeUrl = socialPlatforms.find((platform) => platform.id === "youtube")?.url
 
   return (
-    <section id="contact" className="section-padding scroll-mt-24">
+    <section id="contact" className="section-padding scroll-mt-24 bg-muted/30">
       <div className="max-width">
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
@@ -31,12 +33,14 @@ export function Contact({ locale }: { locale: Locale }) {
                   {t("contact.sendEmail")}
                 </a>
               </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href={siteConfig.social.youtube} target="_blank" rel="noopener noreferrer">
-                  <YoutubeIcon className="me-2 h-4 w-4" />
-                  {t("contact.watchChannel")}
-                </a>
-              </Button>
+              {youtubeUrl && (
+                <Button asChild size="lg" variant="outline">
+                  <a href={youtubeUrl} target="_blank" rel="noopener noreferrer">
+                    <YoutubeIcon className="me-2 h-4 w-4" />
+                    {t("contact.watchChannel")}
+                  </a>
+                </Button>
+              )}
             </div>
 
             <div className="glass-card mx-auto mt-16 max-w-lg rounded-xl p-8 text-start sm:p-10">

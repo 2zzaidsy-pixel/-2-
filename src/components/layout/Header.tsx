@@ -20,7 +20,7 @@ const navSections = [
   { id: "philosophy", key: "nav.philosophy" },
 ] as const
 
-export function Header({ locale }: { locale: Locale }) {
+export function Header({ locale, pairedSlugs = [] }: { locale: Locale; pairedSlugs?: string[] }) {
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = React.useState(false)
@@ -50,7 +50,7 @@ export function Header({ locale }: { locale: Locale }) {
   )
 
   const otherLocale: Locale = locale === "en" ? "ar" : "en"
-  const localeHref = languageSwitchHref(pathname, locale)
+  const localeHref = languageSwitchHref(pathname, locale, pairedSlugs)
   const pathWithoutHash = pathname.split("#")[0]
 
   const isActive = (match: string) => {

@@ -4,6 +4,7 @@ import { defaultLocale, isLocale, localeCookie } from "@/lib/i18n"
 const passthroughPrefixes = [
   "/_next",
   "/api",
+  "/admin",
   "/opengraph-image",
   "/twitter-image",
   "/icon",

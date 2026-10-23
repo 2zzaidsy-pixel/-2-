@@ -1,11 +1,11 @@
 ---
 title: "من المعلومة إلى الفهم"
 date: "2026-08-24"
-category: "Critical Thinking"
-categoryAr: "التفكير النقدي"
+category: "Philosophy"
+categoryAr: "الفلسفة"
 tags: ["تعلم", "فهم", "معرفة", "أسئلة"]
 description: "الفرق بين من يجمع المعلومات ومن يفهمها ليس كمية ما يقرأ، بل طريقة تعامله معه. بروتوكول عملي لتحويل القراءة إلى معرفة قابلة للاستخدام."
-featured: true
+featured: false
 published: true
 ---
 

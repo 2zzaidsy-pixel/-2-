@@ -32,8 +32,8 @@ export default async function HomePage({ params }: PageProps) {
       <About locale={locale} />
       <Fields locale={locale} />
       <Philosophy locale={locale} />
-      <Projects locale={locale} />
       {articles > 0 && <Content locale={locale} />}
+      <Projects locale={locale} />
       <Contact locale={locale} />
     </>
   )

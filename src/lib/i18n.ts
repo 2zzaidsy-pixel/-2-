@@ -114,14 +114,24 @@ export function swapLocaleInPath(pathname: string): string {
 }
 
 /**
- * Target of the header language switch. Article slugs are language-specific
- * with no translated pairs, so switching from an article lands on that
- * language's blog index instead of a slug that would 404.
+ * Target of the header language switch. Articles are written as translated
+ * pairs that share one slug, so switching from an article keeps the reader on
+ * the same piece when a counterpart exists. Articles without one fall back to
+ * that language's blog index rather than a URL that would 404.
  */
-export function languageSwitchHref(pathname: string, locale: Locale): string {
+export function languageSwitchHref(
+  pathname: string,
+  locale: Locale,
+  pairedSlugs: readonly string[] = []
+): string {
   const segments = pathname.split("/").filter(Boolean)
   const isArticlePage = isLocale(segments[0]) && segments[1] === "blog" && segments.length === 3
   const other: Locale = locale === "en" ? "ar" : "en"
 
-  return isArticlePage ? `/${other}/blog` : swapLocaleInPath(pathname)
+  if (isArticlePage) {
+    const slug = segments[2]
+    return pairedSlugs.includes(slug) ? `/${other}/blog/${slug}` : `/${other}/blog`
+  }
+
+  return swapLocaleInPath(pathname)
 }

@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { siteConfig } from "@/data/site"
 import { createTranslator, type Locale } from "@/lib/i18n"
 
 export function Hero({ locale }: { locale: Locale }) {
@@ -23,7 +24,7 @@ export function Hero({ locale }: { locale: Locale }) {
           <div className="relative mx-auto mb-8 inline-block">
             <div className="mx-auto h-24 w-24 overflow-hidden rounded-full border-2 border-border/60 shadow-xl sm:h-28 sm:w-28">
               <Image
-                src="/profile.jpg"
+                src={siteConfig.image}
                 alt={t("site.portraitAlt")}
                 width={112}
                 height={112}

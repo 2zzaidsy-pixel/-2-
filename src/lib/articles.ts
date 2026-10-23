@@ -118,3 +118,17 @@ export function getAdjacentArticles(
 export function getArticleCount(locale: Locale): number {
   return locales.includes(locale) ? getAllArticles(locale).length : 0
 }
+
+/**
+ * Slugs that exist in every locale. Articles are written as translated pairs
+ * sharing one slug, so these are the ones where switching language can keep
+ * the reader on the same piece instead of dropping them on the blog index.
+ */
+export function getPairedArticleSlugs(): string[] {
+  const [first, ...rest] = locales
+  const firstSlugs = new Set(getAllArticles(first).map((article) => article.slug))
+  return rest.reduce<string[]>((paired, locale) => {
+    const current = new Set(getAllArticles(locale).map((article) => article.slug))
+    return paired.filter((slug) => current.has(slug))
+  }, Array.from(firstSlugs))
+}

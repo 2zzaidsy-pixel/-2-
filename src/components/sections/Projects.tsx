@@ -11,7 +11,7 @@ export function Projects({ locale }: { locale: Locale }) {
   const home = `/${locale}`
 
   return (
-    <section id="projects" className="section-padding scroll-mt-24 bg-muted/30">
+    <section id="projects" className="section-padding scroll-mt-24">
       <div className="max-width">
         <Reveal>
           <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
@@ -33,7 +33,7 @@ export function Projects({ locale }: { locale: Locale }) {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {projects.map((project, index) => (
             <Reveal key={project.id} delay={index * 70}>
               <article className="glass-card flex h-full flex-col rounded-xl p-6 sm:p-8">

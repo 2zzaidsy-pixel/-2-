@@ -1,0 +1,60 @@
+[
+  {
+    "id": "apex",
+    "name": "Apex",
+    "url": "https://apexifywalls.vercel.app/",
+    "monogram": "A",
+    "gradient": "from-indigo-500 via-violet-500 to-fuchsia-500",
+    "status": "live",
+    "category": {
+      "en": "Wallpaper discovery",
+      "ar": "اكتشاف خلفيات"
+    },
+    "description": {
+      "en": "A wallpaper site for people who care what their screen looks like. Browse and preview instead of digging through image boards.",
+      "ar": "موقع خلفيات لمن يهتم بما يبدو على شاشته. تصفّح ومعاينة بدل البحث في منتديات الصور."
+    },
+    "highlights": {
+      "en": [
+        "Built around one job: find a wallpaper, see it full, set it.",
+        "Runs on a Vercel deployment with no backend to maintain.",
+        "Optimized image delivery instead of shipping full-resolution files."
+      ],
+      "ar": [
+        "مبني حول مهمة واحدة: تجد الخلفية، تراها كاملة، وتضعها.",
+        "منشور على Vercel بدون خادم خلفية يحتاج صيانة.",
+        "توصيل صور محسّن بدل إرسال الملفات كاملة الحجم."
+      ]
+    }
+  },
+  {
+    "id": "surpriselab",
+    "name": "SurpriseLab",
+    "url": "https://surpriselab.vercel.app/",
+    "monogram": "SL",
+    "gradient": "from-amber-500 via-orange-500 to-red-500",
+    "status": "live",
+    "category": {
+      "en": "Interactive moments builder",
+      "ar": "صانع اللحظات التفاعلية"
+    },
+    "description": {
+      "en": "Turn a feeling into an interactive page in minutes. Pick a template, edit the text, colors and effects, then share one link — no code.",
+      "ar": "حوّل مشاعرك إلى صفحة تفاعلية في دقائق. اختر قالبًا، عدّل النصوص والألوان والمؤثرات، ثم شارك رابطًا واحدًا — بدون كود."
+    },
+    "highlights": {
+      "en": [
+        "A template library for proposals, love letters, birthdays, gifts, quizzes, riddles, pranks and seasonal cards.",
+        "A no-code editor with instant preview: drag text, images, buttons and video, then add the effects.",
+        "Password protection, a scheduled opening date, a visitor counter and background music.",
+        "Export as a standalone HTML file or a ZIP that keeps working offline."
+      ],
+      "ar": [
+        "مكتبة قوالب: خطوبة، رسالة حب، عيد ميلاد، هدية، اختبار، لغز، مقلب، ومناسبات موسمية.",
+        "محرر بدون كود مع معاينة فورية: نصوص وصور وأزرار وفيديو، ثم المؤثرات.",
+        "حماية بكلمة مرور، وفتح بتاريخ محدد، وعدّاد زوار، وموسيقى خلفية.",
+        "تصدير كملف HTML مستقل أو كملف ZIP يعمل بدون إنترنت."
+      ]
+    }
+  }
+]

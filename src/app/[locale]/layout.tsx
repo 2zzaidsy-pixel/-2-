@@ -7,6 +7,8 @@ import { Footer } from "@/components/layout/Footer"
 import { constructMetadata } from "@/lib/metadata"
 import { createTranslator, isLocale, localeDir, locales, type Locale } from "@/lib/i18n"
 import { siteConfig } from "@/data/site"
+import { socialPlatforms } from "@/data/social"
+import { getPairedArticleSlugs } from "@/lib/articles"
 import "../globals.css"
 
 const geistSans = Geist({
@@ -68,7 +70,7 @@ export default async function LocaleLayout({
     image: `${siteConfig.url}${siteConfig.image}`,
     url: `${siteConfig.url}/${typedLocale}`,
     email: `mailto:${siteConfig.contact.email}`,
-    sameAs: Object.values(siteConfig.social),
+    sameAs: socialPlatforms.map((platform) => platform.url),
   }
 
   return (
@@ -87,7 +89,7 @@ export default async function LocaleLayout({
             {t("a11y.skipToContent")}
           </a>
 
-          <Header locale={typedLocale} />
+          <Header locale={typedLocale} pairedSlugs={getPairedArticleSlugs()} />
 
           <main id="main-content" className="flex-1">
             {children}

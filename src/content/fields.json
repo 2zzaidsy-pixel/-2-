@@ -1,0 +1,52 @@
+[
+  {
+    "id": "psychology",
+    "title": { "en": "Psychology", "ar": "علم النفس" },
+    "description": {
+      "en": "How attention, memory, and motivation actually behave — and why the popular explanations are usually wrong.",
+      "ar": "كيف يتصرّف الانتباه والذاكرة والدافعية حقًا، ولماذا التفسيرات الشائعة خاطئة في الغالب."
+    },
+    "icon": "brain",
+    "color": "from-violet-500 to-purple-600"
+  },
+  {
+    "id": "philosophy",
+    "title": { "en": "Philosophy", "ar": "الفلسفة" },
+    "description": {
+      "en": "Where the big questions live: what makes an argument good, and what we owe each other.",
+      "ar": "حيث تقيم الأسئلة الكبيرة: ما الذي يجعل الحجة جيدة، وما الذي ندينه بعضنا لبعض."
+    },
+    "icon": "landmark",
+    "color": "from-amber-500 to-orange-600"
+  },
+  {
+    "id": "sociology",
+    "title": { "en": "Sociology", "ar": "علم الاجتماع" },
+    "description": {
+      "en": "How groups, norms, and institutions quietly decide what millions of people come to find normal.",
+      "ar": "كيف تُقرّر الجماعات والأخلاقيات والمؤسسات، بهدوء، ما الذي يعتبره ملايين الناس طبيعيًا."
+    },
+    "icon": "network",
+    "color": "from-blue-500 to-cyan-600"
+  },
+  {
+    "id": "behavior",
+    "title": { "en": "Human behavior", "ar": "السلوك البشري" },
+    "description": {
+      "en": "The gap between what people say they want and what they actually do with a free afternoon.",
+      "ar": "الفجوة بين ما يقوله الناس إنهم يريدونه وما يفعلونه فعلًا في وقت فراغ."
+    },
+    "icon": "activity",
+    "color": "from-emerald-500 to-teal-600"
+  },
+  {
+    "id": "critical-thinking",
+    "title": { "en": "Critical thinking", "ar": "التفكير النقدي" },
+    "description": {
+      "en": "Checking claims before believing them, and building arguments you can defend without flinching.",
+      "ar": "التحقق من الادعاءات قبل تصديقها، وبناء حجج تستطيع الدفاع عنها دون تردد."
+    },
+    "icon": "lightbulb",
+    "color": "from-rose-500 to-pink-600"
+  }
+]

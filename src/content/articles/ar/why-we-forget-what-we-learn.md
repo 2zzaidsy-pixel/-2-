@@ -1,8 +1,8 @@
 ---
 title: "لماذا ننسى ما نتعلّمه"
 date: "2026-07-30"
-category: "Human Behavior"
-categoryAr: "السلوك البشري"
+category: "Psychology"
+categoryAr: "علم النفس"
 tags: ["ذاكرة", "تعلم", "سلوك", "انتباه"]
 description: "النسيان ليس عيبًا في الذاكرة بل نظام حماية منها. لماذا يحذف الدماغ ما لا يُستخدم، وكيف تستعيد ما بدأت في تعلّمه."
 featured: false

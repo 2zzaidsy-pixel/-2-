@@ -1,3 +1,5 @@
+import * as React from "react"
+import { Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/ui/Reveal"
 import {
@@ -8,11 +10,12 @@ import {
 import { socialPlatforms, type SocialPlatform } from "@/data/social"
 import { createTranslator, localize, plural, type Locale } from "@/lib/i18n"
 
-const platformIcons = {
+const platformIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   youtube: YoutubeIcon,
   instagram: InstagramIcon,
   facebook: FacebookIcon,
-} as const
+  website: Globe,
+}
 
 function FollowerCount({ platform, locale }: { platform: SocialPlatform; locale: Locale }) {
   if (platform.followers === null) return null
@@ -44,7 +47,7 @@ export function Content({ locale }: { locale: Locale }) {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {socialPlatforms.map((platform, index) => {
-            const Icon = platformIcons[platform.id]
+            const Icon = platformIcons[platform.id] ?? Globe
             return (
               <Reveal key={platform.id} delay={index * 70}>
                 <article className="glass-card flex h-full flex-col items-center rounded-xl p-6 text-center sm:p-8">

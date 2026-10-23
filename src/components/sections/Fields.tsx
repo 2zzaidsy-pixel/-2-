@@ -1,4 +1,13 @@
-import { Brain, Users, TrendingUp, Activity, Lightbulb, type LucideIcon } from "lucide-react"
+import {
+  Brain,
+  Users,
+  TrendingUp,
+  Activity,
+  Lightbulb,
+  Landmark,
+  Network,
+  type LucideIcon,
+} from "lucide-react"
 import { fields, type Field } from "@/data/fields"
 import { Reveal } from "@/components/ui/Reveal"
 import { createTranslator, localize, type Locale } from "@/lib/i18n"
@@ -9,6 +18,8 @@ const iconMap: Record<Field["icon"], LucideIcon> = {
   "trending-up": TrendingUp,
   activity: Activity,
   lightbulb: Lightbulb,
+  landmark: Landmark,
+  network: Network,
 }
 
 export function Fields({ locale }: { locale: Locale }) {
