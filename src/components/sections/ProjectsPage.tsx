@@ -75,7 +75,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
                     <div
                       className={`flex min-h-[220px] items-center justify-center bg-gradient-to-br ${project.gradient} p-10 lg:min-h-full`}
                     >
-                      <span aria-hidden className="text-6xl font-bold text-white/25 sm:text-7xl">
+                      <span aria-hidden className="text-6xl font-bold text-black/30 dark:text-white/25 sm:text-7xl">
                         {project.monogram}
                       </span>
                     </div>

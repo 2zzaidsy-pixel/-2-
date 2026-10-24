@@ -21,10 +21,10 @@ export function Footer({ locale }: { locale: Locale }) {
       <div className="max-width px-6 py-14 sm:px-8 sm:py-16 lg:px-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <Link href={home} className="flex items-center gap-2 text-lg font-semibold tracking-tight">
+            <Link href={home} className="flex items-center gap-2 text-lg font-semibold tracking-tight text-black dark:text-white">
               <span
                 aria-hidden
-                className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] text-sm font-bold text-white"
+                className="grid h-8 w-8 place-items-center rounded-lg bg-neutral-100 border border-neutral-300 text-black text-sm font-bold shadow-sm transition-all duration-300 dark:border-transparent dark:bg-gradient-to-br dark:from-[var(--brand-gradient-from)] dark:to-[var(--brand-gradient-to)] dark:text-white"
               >
                 Z
               </span>

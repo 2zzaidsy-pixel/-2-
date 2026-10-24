@@ -52,12 +52,12 @@ export function Content({ locale }: { locale: Locale }) {
               <Reveal key={platform.id} delay={index * 70}>
                 <article className="glass-card flex h-full flex-col items-center rounded-xl p-6 text-center sm:p-8">
                   <div
-                    className={`mb-5 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${platform.color} text-white shadow-lg`}
+                    className={`mb-5 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-100 border border-neutral-200 text-black shadow-sm transition-all duration-300 dark:border-transparent dark:bg-gradient-to-br ${platform.color} dark:text-white dark:shadow-lg`}
                   >
                     <Icon className="h-7 w-7" />
                   </div>
 
-                  <h3 className="text-lg font-semibold">{platform.name}</h3>
+                  <h3 className="text-lg font-semibold text-black dark:text-white">{platform.name}</h3>
                   <p className="mt-1 text-xs text-muted-foreground">{platform.handle}</p>
                   <p className="my-4 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {localize(platform.description, locale)}

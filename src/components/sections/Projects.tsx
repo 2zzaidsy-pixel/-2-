@@ -40,7 +40,7 @@ export function Projects({ locale }: { locale: Locale }) {
                 <div
                   className={`mb-5 flex h-40 items-center justify-center rounded-xl bg-gradient-to-br ${project.gradient}`}
                 >
-                  <span aria-hidden className="text-4xl font-bold text-white/25">
+                  <span aria-hidden className="text-4xl font-bold text-black/30 dark:text-white/25">
                     {project.monogram}
                   </span>
                 </div>

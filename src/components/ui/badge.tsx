@@ -12,7 +12,7 @@ const badgeVariants = cva(
         destructive: "border-transparent bg-destructive text-destructive-foreground",
         outline: "text-muted-foreground",
         gradient:
-          "border-transparent bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] text-white",
+          "bg-primary/15 border border-primary/25 text-black font-medium dark:border-transparent dark:bg-gradient-to-r dark:from-[var(--brand-gradient-from)] dark:to-[var(--brand-gradient-to)] dark:text-white",
       },
     },
     defaultVariants: {

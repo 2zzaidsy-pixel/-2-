@@ -86,10 +86,10 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
-            <Link href="/admin" className="flex items-center gap-2 font-semibold">
+            <Link href="/admin" className="flex items-center gap-2 font-semibold text-black dark:text-white">
               <span
                 aria-hidden
-                className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] text-sm font-bold text-white"
+                className="grid h-8 w-8 place-items-center rounded-lg bg-neutral-100 border border-neutral-300 text-black text-sm font-bold shadow-sm transition-all duration-300 dark:border-transparent dark:bg-gradient-to-br dark:from-[var(--brand-gradient-from)] dark:to-[var(--brand-gradient-to)] dark:text-white"
               >
                 A
               </span>

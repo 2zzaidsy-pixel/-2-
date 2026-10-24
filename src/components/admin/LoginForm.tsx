@@ -40,7 +40,7 @@ export function LoginForm() {
       <div className="mb-6 flex flex-col items-center text-center">
         <span
           aria-hidden
-          className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] text-white"
+          className="grid h-12 w-12 place-items-center rounded-xl bg-neutral-100 border border-neutral-300 text-black shadow-sm transition-all duration-300 dark:border-transparent dark:bg-gradient-to-br dark:from-[var(--brand-gradient-from)] dark:to-[var(--brand-gradient-to)] dark:text-white"
         >
           <Lock className="h-6 w-6" />
         </span>

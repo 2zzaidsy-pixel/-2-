@@ -21,7 +21,7 @@ export default function LocaleNotFound() {
       </p>
       <Link
         href={`/${locale}`}
-        className="inline-flex h-11 items-center rounded-lg bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] px-6 text-sm font-medium text-white"
+        className="inline-flex h-11 items-center rounded-lg bg-gradient-to-r from-primary/20 via-accent/25 to-primary/15 border border-primary/30 text-black font-semibold dark:border-transparent dark:from-[var(--brand-gradient-from)] dark:to-[var(--brand-gradient-to)] dark:text-white px-6 text-sm shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
       >
         {t("error.home")}
       </Link>
